@@ -20,6 +20,15 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'vendor_id' => 'required',
+            'branch_manager_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'count' => 'required'
+        ]);
+
         $product = new Product();
         $product->vendor_id = $request->vendor_id;
         $product->branch_manager_id = $request->branch_manager_id;
@@ -52,7 +61,8 @@ class ProductsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        return View('products.edit', compact('product'));
     }
 
     /**
@@ -60,7 +70,27 @@ class ProductsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'vendor_id' => 'required',
+            'branch_manager_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'count' => 'required'
+        ]);
+
+        $product = Product::find($id);
+        $product->vendor_id = $request->vendor_id;
+        $product->branch_manager_id = $request->branch_manager_id;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->count = $request->count;
+        $product->img = null;
+        $product->save();
+        
+        return redirect()->route('products.index')
+                        ->with('success','Product created successfully.');
     }
 
     /**
@@ -68,6 +98,10 @@ class ProductsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+         
+        return redirect()->route('products.index')
+                        ->with('success','Product deleted successfully');
     }
 }

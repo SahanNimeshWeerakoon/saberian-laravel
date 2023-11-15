@@ -1,1 +1,1 @@
-<h2 style="text-align: center">Footer</h2>
+<h2 style="text-align: center" class="pt-5 pb-5 mt-5">Footer</h2>

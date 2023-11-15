@@ -16,5 +16,11 @@
         width: 23%;
         position: relative;
     }
-    
+    .nav > div {
+        width: 100%;
+    }
+    .nav > div .nav_links a {
+        text-decoration: none;
+        font-weight: bold !important;
+    }
 </style>

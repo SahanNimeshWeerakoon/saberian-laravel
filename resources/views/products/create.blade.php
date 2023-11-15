@@ -1,6 +1,16 @@
 @extends('layout')
 @section('content')
 <div class="create-product">
+    @if ($errors->any())
+    <div class="alert alert-danger container">
+        Sorry! Something went wrong.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form class="container mt-5" action="{{ route('products.store') }}" method="POST">
         @csrf
         <h2 class="mt-5 mb-4 text-center">Upload New Stock</h2>
@@ -36,7 +46,7 @@
             <label for="count">Item Count</label>
             <input type="number" class="form-control" id="count" name="count" />
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
     </form>
 </div>
 @stop
