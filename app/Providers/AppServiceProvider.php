@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Vendor;
+use App\Models\BranchManager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer(['products.*'], function($view) {
+            $view->with('vendors', Vendor::orderBy('name')->get())
+                ->with('branchManagers', BranchManager::orderBy('branch_name')->get());
+        });
     }
 }
